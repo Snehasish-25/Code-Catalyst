@@ -5,6 +5,7 @@ import { courseApi } from "@/features/api/courseApi";
 import { lectureApi } from "@/features/api/lectureApi";
 import { purchaseApi } from "@/features/api/purchaseApi";
 import { courseProgressApi } from "@/features/api/courseProgressApi";
+import { revisionApi } from "@/features/api/revisionApi";
 
 //Merging multiple reducers into a single root reducer
 const rootReducer=combineReducers({
@@ -14,6 +15,7 @@ const rootReducer=combineReducers({
     [lectureApi.reducerPath]:lectureApi.reducer,
     [purchaseApi.reducerPath]:purchaseApi.reducer,
     [courseProgressApi.reducerPath]:courseProgressApi.reducer,
+    [revisionApi.reducerPath]:revisionApi.reducer,
     
 })
 export default rootReducer;

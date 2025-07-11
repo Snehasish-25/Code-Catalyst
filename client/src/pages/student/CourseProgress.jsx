@@ -7,41 +7,25 @@ import {
   useInCompleteCourseMutation,
   useUpdateLectureProgressMutation,
 } from "@/features/api/courseProgressApi";
+import { useCreateRevisionMutation } from "@/features/api/revisionApi";
 import { CheckCircle, CheckCircle2, CirclePlay } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const CourseProgress = () => {
+  const user=useSelector((state)=>state.authSlice);
   const params = useParams();
   const courseId = params.courseId;
   const [currentLecture, setCurrentLecture] = useState(null);
 
-
-  const { data, isLoading, isError, refetch } =
-    useGetCourseProgressQuery(courseId);
-
+  const { data, isLoading, isError, refetch } =useGetCourseProgressQuery(courseId);
   const [updateLectureProgress] = useUpdateLectureProgressMutation();
+  const [completeCourse,{ data: markCompleteData, isSuccess: completedSuccess }] = useCompleteCourseMutation();
+  const [inCompleteCourse,{ data: markInCompleteData, isSuccess: inCompletedSuccess},] = useInCompleteCourseMutation();
 
-  const [
-    completeCourse,
-    { data: markCompleteData, isSuccess: completedSuccess },
-  ] = useCompleteCourseMutation();
-  const [
-    inCompleteCourse,
-    { data: markInCompleteData, isSuccess: inCompletedSuccess},
-  ] = useInCompleteCourseMutation();
-
-  // useEffect(() => {
-  //   if (completedSuccess) {
-  //     toast.success(markCompleteData?.message || "Course marked as completed");
-  //     refetch();
-  //   }
-  //   else if (inCompletedSuccess) {
-  //     toast.success(markInCompleteData?.message || "Course marked as inCompleted");
-  //     refetch();
-  //   }
-  // }, [completedSuccess, inCompletedSuccess,markCompleteData,markInCompleteData,refetch]);
+  const [createRevision] = useCreateRevisionMutation();
 
   useEffect(() => {
     if (currentLecture) {
@@ -51,22 +35,32 @@ const CourseProgress = () => {
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Failed to load Course Details</p>;
-
-
-  //console.log(data);
+  
   const { courseDetails, progress, completed } = data.data;
-
   const { title } = courseDetails;
 
   const initialLecture =
-    currentLecture || (courseDetails.lectures && courseDetails.lectures[0]);
+    currentLecture || (courseDetails.lectures && courseDetails.lectures[0]); //whenever we open this course-progress page or refresh it it sets the initial lecture as the first lecture and on clicking any lecture it sets the initial lecture to the current lecture
 
   const isLectureCompleted = (lectureId) => {
     return progress.some((prog) => prog.lectureId === lectureId && prog.viewed);
   };
+
   const handleLectureProgress = async (lectureId) => {
+    try {
+  
+      const response = await createRevision({
+      userId: user.user._id,
+      courseId: courseId,
+      lectureId: lectureId,
+      completedOn: new Date().toISOString(),
+    }).unwrap();
     await updateLectureProgress({ courseId, lectureId });
     refetch();
+    toast.success(response.message);
+  } catch (error) {
+    toast.error("Failed to create revision plan")
+  }
   };
   const handleSelectLecture = (lecture) => {
     setCurrentLecture(lecture);
@@ -82,7 +76,6 @@ const CourseProgress = () => {
     refetch();
     toast.success(markInCompleteData?.message || "Course marked as Incompleted");
   };
- 
 
   return (
     <div className="max-w-7xl mx-auto p-4 dark:bg-gray-900 dark:text-white">

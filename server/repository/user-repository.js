@@ -29,7 +29,7 @@ class UserRepository{
         try {
             const user=await User.findById(id).select("-password").populate({
                 path: "enrolledCourses",
-                populate: { path: "creator", select: "name" }, // Populating creator
+                populate: { path: "creator", select: "name photoURL" }, // Populating creator
               });
             return user;
         } catch (error) {

@@ -5,8 +5,6 @@ const {
 } = require("../utils/cloudinary");
 const userService = new UserService(); //creating an object
 
-
-
 const signup = async (req, res) => {
   try {
     const response = await userService.signup(req.body);
@@ -17,7 +15,7 @@ const signup = async (req, res) => {
       err: {},
     });
   } catch (error) {
-    console.log("Something went wrong in user-controller", error.message)
+    console.log("Something went wrong in user-controller", error.message);
     return res.status(500).json({
       status: false,
       data: {},
@@ -44,7 +42,7 @@ const login = async (req, res) => {
         err: {},
       });
   } catch (error) {
-    console.log("Something went wrong in user-controller", error.message)
+    console.log("Something went wrong in user-controller", error.message);
     return res.status(500).json({
       success: false,
       message: "Some error occured in user-controller",
@@ -58,7 +56,8 @@ const logout = async (req, res) => {
   try {
     return res
       .status(200)
-      .cookie("token", "", {  //token delete kar diya
+      .cookie("token", "", {
+        //token delete kar diya
         httpOnly: true,
         sameSite: "strict",
         maxAge: 0,
@@ -69,7 +68,7 @@ const logout = async (req, res) => {
         err: {},
       });
   } catch (error) {
-    console.log("Something went wrong in user-controller", error.message)
+    console.log("Something went wrong in user-controller", error.message);
     return res.status(500).json({
       success: false,
       message: "Some error occured in user-controller",
@@ -92,7 +91,7 @@ const getUserProfile = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log("Something went wrong in user-controller", error.message)
+    console.log("Something went wrong in user-controller", error.message);
     return res.status(500).json({
       success: false,
       message: "Some error occured in user-controller",
@@ -101,53 +100,52 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-const updateProfile=async(req,res)=>{
+const updateProfile = async (req, res) => {
   try {
-        const userId=req.id;
-        const {name}=req.body;
-        const profilePhoto=req.file;
+    const userId = req.id;
+    const { name } = req.body;
+    const profilePhoto = req.file;
 
-        const user=await userService.getUserById(userId);
-        if(!user){//no user exists corresponding to the given id
-            return res.status(404).json({
-                success:false,
-                message:"User Not Found"
-            })
-        }
+    const user = await userService.getUserById(userId);
+    if (!user) {
+      //no user exists corresponding to the given id
+      return res.status(404).json({
+        success: false,
+        message: "User Not Found",
+      });
+    }
 
-        let updatedData={name,photoURL:user.photoURL};
+    let updatedData = { name, photoURL: user.photoURL };
 
-        if(user.photoURL && profilePhoto){
-            const publicId=user.photoURL.split('/').pop().split('.')[0]; //extracting the publicId from cloudinary photoUrl
-            deleteMediaFromCloudinary(publicId);
-        }
- 
-        if(profilePhoto)
-        {
-          const cloudResponse= await uploadMediaToCloudinary(profilePhoto.path);
-          const photoUrl=cloudResponse.secure_url;
-          updatedData={name,photoURL:photoUrl};
-        }
+    if (user.photoURL && profilePhoto) {
+      const publicId = user.photoURL.split("/").pop().split(".")[0]; //extracting the publicId from cloudinary photoUrl
+      deleteMediaFromCloudinary(publicId);
+    }
 
-        //Now upload this data
-        const response=await userService.updateUserProfile(userId,updatedData);
-        return res.status(200).json({
-            status:true,
-            message:"User Profile updated successfully",
-            data:response,
-            err:{}
-        })
+    if (profilePhoto) {
+      const cloudResponse = await uploadMediaToCloudinary(profilePhoto.path);
+      const photoUrl = cloudResponse.secure_url;
+      updatedData = { name, photoURL: photoUrl };
+    }
 
+    //Now upload this data
+    const response = await userService.updateUserProfile(userId, updatedData);
+    return res.status(200).json({
+      status: true,
+      message: "User Profile updated successfully",
+      data: response,
+      err: {},
+    });
   } catch (error) {
-    console.log("Something went wrong in user-controller", error.message)
+    console.log("Something went wrong in user-controller", error.message);
     return res.status(500).json({
-        success:false,
-        message:"Some error occured in user-controller",
-        data:{},
-        err:error
-  })
-}
-}
+      success: false,
+      message: "Some error occured in user-controller",
+      data: {},
+      err: error,
+    });
+  }
+};
 
 module.exports = {
   signup,

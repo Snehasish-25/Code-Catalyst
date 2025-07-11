@@ -64,7 +64,7 @@ const updateLectureProgress = async (req, res) => {
       userId,
     });
     
-    //if no progress exists then create a new record
+    //if no progress exists then create a new record-->this occurs when we are watching any lecture of that course for the first time.
     if (!courseProgress) {
       courseProgress = new CourseProgress({
         userId,

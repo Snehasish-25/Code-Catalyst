@@ -50,7 +50,8 @@ const Login = () => {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginUserMutation();
-
+  //console.log(loginData);
+  
   //Handling multiple input fields together
   const handleInputChange = (e, type) => {
     const { name, value } = e.target;
@@ -74,7 +75,7 @@ const Login = () => {
       toast.error(registerError.data.err.message || "Signup Failed");
     if (loginIsSuccess && loginData)
     {
-      toast.success(loginData.message || "Login successfull");
+      toast.success(loginData.message || "Successfully logged");
       navigate("/");
     }
      

@@ -6,13 +6,15 @@ const lectureRoutes=require("./v1/lecture");
 const mediaRoutes=require("./v1/media")
 const purchaseRoutes=require("./v1/purchaseCourse");
 const courseProgressRoutes=require("./v1/courseProgress");
+const revisionRoutes=require("./v1/revision");
 
 router.use("/v1/user",userRoutes);
 router.use("/v1/course",courseRoutes);
 router.use("/v1/course",lectureRoutes);
 router.use("/v1/media",mediaRoutes);
 router.use("/v1/purchase",purchaseRoutes);
-router.use("/v1/progress",courseProgressRoutes)
+router.use("/v1/progress",courseProgressRoutes);
+router.use("/v1/revision",revisionRoutes);
 
 module.exports=router;
 

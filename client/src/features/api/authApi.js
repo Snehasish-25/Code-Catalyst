@@ -27,7 +27,7 @@ export const authApi = createApi({
         body: inputData,
       }),
       //This is an RTK Query lifecycle method that runs when the mutation starts.
-      /*Basically onQueryStarted wale method ka use karne hum userLoggedIn wale action ke through user ke 
+      /*Basically onQueryStarted wale method ka use karne hum userLoggedIn wale action creator ke through user ke 
          loggedIn state ko manage kar rahe h when the user gets sucessfully loggedIn(queryFullfilled) then we
          dispatch an action to update the status of userLoggedIn */
       async onQueryStarted(_, { queryFulfilled, dispatch }) {
@@ -61,6 +61,7 @@ export const authApi = createApi({
         url: "profile",
         method: "GET",
       }),
+       providesTags: ['User'],
       async onQueryStarted(_, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
@@ -79,6 +80,7 @@ export const authApi = createApi({
         method: "PUT",
         body: formData,
       }),
+       invalidatesTags: ['User'],
     }),
 
 

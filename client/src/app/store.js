@@ -5,12 +5,20 @@ import { courseApi } from "@/features/api/courseApi";
 import { lectureApi } from "@/features/api/lectureApi";
 import { purchaseApi } from "@/features/api/purchaseApi";
 import { courseProgressApi } from "@/features/api/courseProgressApi";
+import { revisionApi } from "@/features/api/revisionApi";
 
-export const appStore=configureStore({
-    reducer:rootReducer,
-    middleware: (defaultMiddleware) =>
-        defaultMiddleware().concat(authApi.middleware,courseApi.middleware,lectureApi.middleware,purchaseApi.middleware,courseProgressApi.middleware),
-})
+export const appStore = configureStore({
+  reducer: rootReducer,
+  middleware: (defaultMiddleware) =>
+    defaultMiddleware().concat(
+      authApi.middleware,
+      courseApi.middleware,
+      lectureApi.middleware,
+      purchaseApi.middleware,
+      courseProgressApi.middleware,
+      revisionApi.middleware
+    ),
+});
 
 // const initializeApp=async()=>{
 //     await appStore.dispatch(authApi.endpoints.loadUserProfile.initiate({},{forceRefetch:true}));

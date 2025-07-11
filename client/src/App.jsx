@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import About from "./components/About/AboutPage";
+import CodingLab from "./components/CodingLab";
 import Login from "./pages/Login";
 import HeroSection from "./pages/student/HeroSection";
 import MainLayout from "./layout/MainLayout";
@@ -24,6 +25,8 @@ import {
 } from "./components/ProtectedRoutes";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
 import { ThemeProvider } from "./components/ThemeProvider";
+import RevisionDashboard from "./pages/student/Revision";
+
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -38,6 +41,22 @@ function App() {
         {
           path: "/about",
           element: <About />,
+        },
+        {
+          path: "/quick-compiler",
+          element: (
+            <ProtectedRoute>
+              <CodingLab />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/revision-Dashboard",
+          element: (
+            <ProtectedRoute>
+              <RevisionDashboard />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "login",

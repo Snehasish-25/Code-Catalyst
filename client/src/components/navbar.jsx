@@ -65,6 +65,9 @@ const Navbar = () => {
           <Link to="/about">
           <div className="text-lg cursor-pointer">About Us</div>
           </Link>
+          <Link to="/quick-compiler">
+          <div className="text-lg cursor-pointer">Quick Compiler</div>
+          </Link>
           
           {/* User Avatar and DarkMode Button */}
           {user ? (

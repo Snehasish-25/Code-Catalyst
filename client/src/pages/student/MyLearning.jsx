@@ -4,15 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router-dom";
 import { useLoadUserProfileQuery } from "@/features/api/authApi";
+import { useNavigate } from "react-router-dom";
 
 const MyLearning = () => {
-  const {data,isLoading}=useLoadUserProfileQuery();
-  const myLearning =data?.user.enrolledCourses || [];
+  const navigate=useNavigate();
+  const { data, isLoading } = useLoadUserProfileQuery();
+  const myLearning = data?.user.enrolledCourses || [];
   return (
     <div className="max-w-6xl mx-auto my-20 px-4 md:px-0">
       <h1 className=" flex justify-center items-center font-bold text-2xl">
         MY LEARNINGS{" "}
       </h1>
+      <Button
+        onClick={() => navigate(`/revision-Dashboard`)}
+        className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200 rounded-full px-6 py-3 hover:bg-gray-200 dark:hover:bg-gray-500 transition-all"
+      >
+        Go to Revision Dashboard
+      </Button>
       <div>
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  my-8">
@@ -28,12 +36,14 @@ const MyLearning = () => {
             <h2 className="font-semibold text-xl text-blue-500">
               Let's Explore trending Courses!
             </h2>
-            <Button className="bg-blue-500 dark:bg-gray-800 text-white rounded-full hover:bg-emerald-500 mt-6"><Link to={"/"}>Explore Courses</Link></Button>
+            <Button className="bg-blue-500 dark:bg-gray-800 text-white rounded-full hover:bg-emerald-500 mt-6">
+              <Link to={"/"}>Explore Courses</Link>
+            </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  my-8">
             {myLearning.map((course, index) => (
-              <Course key={index} course={course}/>
+              <Course key={index} course={course} />
             ))}
           </div>
         )}
