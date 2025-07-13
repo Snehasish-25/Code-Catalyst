@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const REVISION_BASE_API = "http://localhost:3000/api/v1/revision";
+const REVISION_BASE_API = "https://code-catalyst-9tqw.onrender.com/api/v1/revision";
 export const revisionApi = createApi({
   reducerPath: "revisionApi",
 
