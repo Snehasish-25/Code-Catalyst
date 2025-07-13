@@ -86,7 +86,7 @@ const findLectureById=async (req,res)=>{
     
     const {lectureId}=req.params;
     let lecture=await lectureService.findLectureById(lectureId);
-    console.log(lecture);
+  
     
     return res.status(200).json({
       success: true,

@@ -210,14 +210,14 @@ const getCourseDetailWithPurchaseStatus = async (req, res) => {
 const getAllPurchasedCourses = async (req, res) => {
   try {
     const instructorId = req.id; // The logged-in instructor's ID
-    console.log(instructorId);
+
 
     // 1. Find all courses created by the instructor
     const instructorCourses = await Course.find({ creator: instructorId }).select("_id");
-    console.log(instructorCourses);
+
 
     const courseIds = instructorCourses.map(course => course._id);
-    console.log(courseIds);
+  
 
     if (courseIds.length === 0) {
       return res.status(404).json({

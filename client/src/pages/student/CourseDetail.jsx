@@ -19,7 +19,7 @@ const safeExtract = (element) => (element ? element.outerHTML : "");
 const parseDescription = (html) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html"); //Converts the raw HTML string into a document object.
-  console.log(doc);
+ 
   const sections = [
     {
       title: "What You’ll Learn:",

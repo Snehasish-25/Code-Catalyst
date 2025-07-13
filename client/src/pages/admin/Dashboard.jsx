@@ -33,8 +33,6 @@ const COLORS = [
 
 const Dashboard = () => {
   const { data, isLoading, isError } = useGetAllPurchasedCoursesQuery();
-  if(data)
-  console.log(data);
 
   if (isLoading)
     return <h1 className="text-center text-lg">Loading...</h1>;

@@ -121,7 +121,6 @@ const LectureTab = () => {
   useEffect(() => {
     if(lectureIsSuccess)
     {
-    console.log(lectureData);
     setLectureTitle(lecture.data.lectureTitle);
     setIsFree(lecture.data.isPreviewFree);
     }

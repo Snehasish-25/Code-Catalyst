@@ -12,7 +12,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-
 import {
   useLoginUserMutation,
   useRegisterUserMutation,
@@ -53,7 +52,7 @@ const Login = () => {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginUserMutation();
-  //console.log(loginData);
+  
 
   //Handling multiple input fields together
   const handleInputChange = (e, type) => {
@@ -76,7 +75,12 @@ const Login = () => {
       toast.success(registerData.message || "Signup successfull");
     if (registerError)
       toast.error(registerError.data.err.message || "Signup Failed");
+
     if (loginIsSuccess && loginData) {
+      //Store JWT and user info in localStorage
+      // localStorage.setItem("token", loginData.token);
+      // localStorage.setItem("user", JSON.stringify(loginData.user));
+
       toast.success(loginData.message || "Successfully logged");
       navigate("/");
     }
@@ -90,7 +94,6 @@ const Login = () => {
     registerIsLoading,
     loginIsLoading,
   ]);
- 
 
   return (
     <div className="flex justify-center w-full h-screen items-center">
