@@ -8,7 +8,7 @@ const Course = ({course}) => {
 
   return (
     
-    <Link to={`http://localhost:5173/course-detail/${course._id}`}>
+    <Link to={`/course-detail/${course._id}`}>
         <Card className="overflow-hidden rounded-lg bg-[#d8f3dc] 
         dark:bg-gray-900 dark:text-gray-100
         shadow-lg dark:shadow-gray-700 hover:shadow-xl dark:hover:shadow-gray-600
