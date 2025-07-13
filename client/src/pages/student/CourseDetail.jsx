@@ -24,7 +24,6 @@ const parseDescription = (html) => {
     {
       title: "What You’ll Learn:",
       content:
-        //safeExtract(doc.querySelector("h2")) +
         safeExtract(doc.querySelector("ul")),
     },
     {
@@ -95,8 +94,6 @@ const CourseDetail = () => {
 
       <div className="max-w-7xl mx-auto my-5 px-4 md:px-8 flex flex-col lg:flex-row justify-between gap-10">
         <div className="w-full lg:w-1/2 space-y-5">
-          {/*<h1 className="font-bold text-xl md:text-2xl">Description</h1>*/}
-          {/* <div className="text-sm" dangerouslySetInnerHTML={{__html:course.description}}/>*/}
 
           <div className="space-y-8">
             {sections.map((section, index) => (

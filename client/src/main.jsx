@@ -25,7 +25,7 @@ createRoot(document.getElementById("root")).render(
   
     <Provider store={appStore}>
       <Custom>
-        <App /> {/* Here app component acts as the children prop passed to Custom component.*/}
+        <App /> 
         <Toaster></Toaster>
       </Custom>
       

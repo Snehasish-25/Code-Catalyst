@@ -62,10 +62,6 @@ const Profile = () => {
     }
   };
 
-  // useEffect(() => {
-  //   refetch();
-  // }, []);
-
   useEffect(() => {
     if (updateUserProfileisSuccess) {
       //refetch();

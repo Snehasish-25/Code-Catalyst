@@ -3,7 +3,6 @@ import { useTheme } from "./ThemeProvider";
 
 const LiveCodingLab = () => {
   const { theme } = useTheme();  
-  console.log(theme);
   const [selectedLanguage, setSelectedLanguage] = useState('cpp');
   const [iframeSrc, setIframeSrc] = useState('');
 

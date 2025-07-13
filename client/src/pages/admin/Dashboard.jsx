@@ -26,7 +26,7 @@ import {
   ShoppingCart
 } from "lucide-react";
 
-// Define pie chart colors
+//Define pie chart colors
 const COLORS = [
   "#8884d8", "#82ca9d", "#ffc658", "#ff7f50", "#ffbb28", "#00C49F", "#845EC2"
 ];
@@ -44,17 +44,17 @@ const Dashboard = () => {
 
   const purchasedCourses = data?.data || [];
 
-  // 🧠 Calculate total revenue and sales
+  // Calculate total revenue and sales
   const totalRevenue = purchasedCourses.reduce((acc, item) => acc + (item.amount || 0), 0);
   const totalSales = purchasedCourses.length;
 
-  // 📊 Prepare data for line chart (price overview)
+  // Prepare data for line chart (price overview)
   const lineChartData = purchasedCourses.map((purchase) => ({
     name: purchase.courseId?.title || "Unknown",
     price: purchase.courseId?.coursePrice || 0
   }));
 
-  // 🥧 Prepare data for pie chart (sales per course)
+  //Prepare data for pie chart (sales per course)
   const salesCountMap = {};
   purchasedCourses.forEach((purchase) => {
     const courseTitle = purchase.courseId?.title || "Unknown";

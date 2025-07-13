@@ -58,7 +58,6 @@ const CourseTable = () => {
         <div className="flex items-center">
            <h1 className="text-2xl mt-4">You haven't published any course. Create a new course.</h1>
         </div>
-          
         </>
       )}
     </div>

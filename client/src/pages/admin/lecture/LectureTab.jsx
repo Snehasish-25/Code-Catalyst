@@ -70,7 +70,6 @@ const LectureTab = () => {
           },
         });
 
-        //console.log(res);
         if (res.data.success) {
           setUploadVideoInfo({
             videoUrl: res.data.data.url,

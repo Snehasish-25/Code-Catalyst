@@ -26,9 +26,8 @@
             sortOptions.coursePrice = -1; // descending
         }
 
-        //console.log(searchCriteria);
         let courses = await Course.find(searchCriteria).populate({path:"creator", select:"name photoURL"}).sort(sortOptions);
-       // console.log(courses);
+
 
         return res.status(200).json({
             success:true,

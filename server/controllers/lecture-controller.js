@@ -44,7 +44,6 @@ const editLecture=async(req,res)=>{
         message:"Lecture Not Found"
       })
   }
-  //console.log("From controller data",req.body);
     const response=await lectureService.editLecture({data:req.body,courseId,lectureId});
     return res.status(200).json({
       success:true,

@@ -108,7 +108,7 @@ const getLectures = async (req, res) => {
   try {
     const { courseId } = req.params;
     const { lectures } = await courseService.getLectures(courseId);
-    //console.log(lectures);
+  
     return res.status(200).json({
       status: true,
       message: "Course Lectures fetched successfully",

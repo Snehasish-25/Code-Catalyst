@@ -16,7 +16,6 @@ const isAuthenticated= async (req,res,next)=>{
                     message:"Invalid Token"
                 })
             }
-            //console.log(decode);
             req.id=decode.id;
             next();
         }
