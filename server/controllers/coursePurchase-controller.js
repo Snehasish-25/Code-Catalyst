@@ -47,8 +47,8 @@ const createCheckOutSession = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `http://localhost:5173/course-progress/${courseId}`, // once payment successful redirect to course progress page
-      cancel_url: `http://localhost:5173/course-detail/${courseId}`, //Redirect  to course-detail page only if payment fails
+      success_url: `https://code-catalyst-r4el.onrender.com/course-progress/${courseId}`, // once payment successful redirect to course progress page
+      cancel_url: `https://code-catalyst-r4el.onrender.com/course-detail/${courseId}`, //Redirect  to course-detail page only if payment fails
       metadata: {
         courseId: courseId,
         userId: userId,

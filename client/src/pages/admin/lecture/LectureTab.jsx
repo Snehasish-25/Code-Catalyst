@@ -22,7 +22,7 @@ import {
 } from "@/features/api/lectureApi";
 import { useGetLecturesQuery } from "@/features/api/courseApi";
 
-const MEDIA_API = "http://localhost:3000/api/v1/media";
+const MEDIA_API = "https://code-catalyst-r4el.onrender.com/api/v1/media";
 
 const LectureTab = () => {
   const navigate = useNavigate();
