@@ -2,13 +2,8 @@ const Lecture = require("../models/lecture.js");
 class LectureRepository {
   async createLecture(data) {
     try {
-      // console.log("From repository");
-      // console.log(data);
-
       const lecture = await Lecture.create(data);
 
-      // console.log("From repository");
-      // console.log(lecture);
       return lecture;
     } catch (error) {
       console.log("Something went wrong in Lecture-Repository");

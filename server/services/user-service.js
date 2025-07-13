@@ -8,7 +8,7 @@ class UserService{
     }
     async signup(data){
         try {
-        const {name,email,password}=data;
+        const {name,email,password,role}=data;
         if(!name || !email || !password){
             throw({
                 status:false,
@@ -28,7 +28,8 @@ class UserService{
         const user=await this.userRepository.create({
             name,
             email,
-            password:hashedPassword
+            password:hashedPassword,
+            role
         });
          return user;
         }

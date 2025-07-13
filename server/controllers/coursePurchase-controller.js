@@ -209,36 +209,69 @@ const getCourseDetailWithPurchaseStatus = async (req, res) => {
 
 const getAllPurchasedCourses = async (req, res) => {
   try {
-    const purchasedCourses = await CoursePurchase.find({
-      status: "completed",
-    }).populate({ path: "courseId" });
+    const instructorId = req.id; // The logged-in instructor's ID
+    console.log(instructorId);
 
-    if(!purchasedCourses){
+    // 1. Find all courses created by the instructor
+    const instructorCourses = await Course.find({ creator: instructorId }).select("_id");
+    console.log(instructorCourses);
+
+    const courseIds = instructorCourses.map(course => course._id);
+    console.log(courseIds);
+
+    if (courseIds.length === 0) {
       return res.status(404).json({
-        message:"NoCourses Purchased yet",
-        data:[]
+        success: false,
+        message: "No courses created by this instructor.",
+        data: []
+      });
+    }
+
+    // 2. Find all completed purchases of these courses
+
+    const courses2=await CoursePurchase.find();
+    console.log(courses2);
+
+
+    const purchasedCourses = await CoursePurchase.find({
+      courseId: { $in: courseIds },
+      status: "completed"
+    })
+      .populate({
+        path: "courseId",
+        select: "title courseThumbnail coursePrice", // optional optimization
+        populate: { path: "creator", select: "name email" }
       })
+      .populate({
+        path: "userId",
+        select: "name email" // student info
+      });
+
+    if (purchasedCourses.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No purchases found for your courses.",
+        data: []
+      });
     }
 
     return res.status(200).json({
-      success:true,
-      message:"Purchased Courses fetched Successfully",
-      data:purchasedCourses,
-      err:{}
-    })
+      success: true,
+      message: "Purchased courses retrieved successfully.",
+      data: purchasedCourses
+    });
+
   } catch (error) {
-    console.log(
-      "Something went wrong in CoursePurchase Controller",
-      error.message
-    );
-    return res.status(5000).json({
+    console.error("Error fetching purchased courses for instructor:", error.message);
+    return res.status(500).json({
       success: false,
-      message: "Unable to get Purchased Courses",
-      data: {},
-      err: error,
+      message: "Internal server error",
+      error: error.message
     });
   }
 };
+
+
 
 module.exports = {
   createCheckOutSession,

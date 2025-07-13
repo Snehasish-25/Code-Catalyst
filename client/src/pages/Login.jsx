@@ -11,6 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+
 import {
   useLoginUserMutation,
   useRegisterUserMutation,
@@ -20,7 +22,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [loginInput, setLoginInput] = useState({
     email: "",
     password: "",
@@ -29,6 +31,7 @@ const Login = () => {
     name: "",
     email: "",
     password: "",
+    role: "student", // default role
   });
 
   const [
@@ -51,7 +54,7 @@ const Login = () => {
     },
   ] = useLoginUserMutation();
   //console.log(loginData);
-  
+
   //Handling multiple input fields together
   const handleInputChange = (e, type) => {
     const { name, value } = e.target;
@@ -73,12 +76,11 @@ const Login = () => {
       toast.success(registerData.message || "Signup successfull");
     if (registerError)
       toast.error(registerError.data.err.message || "Signup Failed");
-    if (loginIsSuccess && loginData)
-    {
+    if (loginIsSuccess && loginData) {
       toast.success(loginData.message || "Successfully logged");
       navigate("/");
     }
-     
+
     if (loginError) toast.error(loginError.data.err.message || "Login Failed");
   }, [
     registerData,
@@ -88,6 +90,7 @@ const Login = () => {
     registerIsLoading,
     loginIsLoading,
   ]);
+ 
 
   return (
     <div className="flex justify-center w-full h-screen items-center">
@@ -141,6 +144,45 @@ const Login = () => {
                   value={signupInput.password}
                   onChange={(e) => handleInputChange(e, "signup")}
                 />
+              </div>
+              <div className="space-y-1">
+                <Label className="text-sm font-medium text-foreground">
+                  Join As
+                </Label>
+                <div className="flex gap-6 mt-1">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="role"
+                      value="student"
+                      checked={signupInput.role === "student"}
+                      onChange={(e) =>
+                        setSignupInput((prev) => ({
+                          ...prev,
+                          role: e.target.value,
+                        }))
+                      }
+                      className="accent-blue-500"
+                    />
+                    <span className="text-muted-foreground">Student</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="role"
+                      value="instructor"
+                      checked={signupInput.role === "instructor"}
+                      onChange={(e) =>
+                        setSignupInput((prev) => ({
+                          ...prev,
+                          role: e.target.value,
+                        }))
+                      }
+                      className="accent-green-500"
+                    />
+                    <span className="text-muted-foreground">Instructor</span>
+                  </label>
+                </div>
               </div>
             </CardContent>
             <CardFooter>

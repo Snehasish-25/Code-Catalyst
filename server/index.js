@@ -8,7 +8,6 @@ const {PORT}=require("./config/serverConfig");
 const connect=require("./config/database")
 const app=express();
 
-//console.log(apiRoutes);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
